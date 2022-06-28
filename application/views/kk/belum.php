@@ -9,6 +9,12 @@
     <!-- datatables -->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('asset/plugin/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('asset/plugin/datatables-responsive/css/responsive.bootstrap4.min.css') ?>">
+    <style>
+        .line {
+            flex: 1;
+            border-bottom: 1px solid black;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -42,12 +48,14 @@
                                 <table id="dt_kk" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th class="text-center align-middle">NO</th>
                                             <th class="text-center align-middle">Perkara / Tanggal</th>
                                             <th class="text-center align-middle">Penggugat / Pemohon</th>
                                             <th class="text-center align-middle">Tergugat / Termohon</th>
                                             <th class="text-center align-middle">Akta Cerai</th>
-                                            <th class="text-center align-middle">Putusan</th>
+                                            <th class="text-center align-middle">Akta Nikah</th>
+                                            <th class="text-center align-middle">Penetapan Anak</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -62,6 +70,16 @@
         <?php $this->load->view("_partials/footer.php") ?>
         <?php $this->load->view("_partials/loader.php") ?>
         <aside class="control-sidebar control-sidebar-dark"></aside>
+        <div id="modal_kk" class="modal fade bd-example-modal-lg">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header d-block">
+                        <h4 class="modal-title text-center">Tambah KK</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- jQuery -->
     <script src="<?php echo base_url('asset/js/jquery/jquery.min.js') ?>"></script>
@@ -335,7 +353,7 @@
                     url: "<?php echo base_url('kk/data_belum'); ?>",
                     beforeSend: function(){
                         $(".loader2").show();
-                    },
+                    },                    
                     dataSrc: "",
                     complete: function()
                     {
@@ -343,37 +361,66 @@
                     }
                 },
                 columns: [
+                    {data:"perkara_id"},
                     {data:null,sortalbe:false, render: function(data,type,row,meta){
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }},
                     {data:"nomor_perkara", render: function(data,type,row,meta){
                         var dateObj = new Date(row.tanggal_putusan);
                         var momentObj = moment(dateObj);
-                        return row.nomor_perkara + "<br>" + momentObj.format('LL');
+                        return row.nomor_perkara + "<br><div class='line'></div>" + momentObj.format('LL');
                     }},
                     {data:"nama_p", render: function(data,type,row,meta){
                         var dateObj = new Date(row.tanggal_lahir_p);
                         var momentObj = moment(dateObj);
-                        return "Nama : " + row.nama_p + "<br>NIK : " + row.nik_p + "<br>Tanggal Lahir : " + momentObj.format('LL') + "<br>Agama : " + nama_agama(row.agama_id_p) + "<br>Pekerjaan : " + row.pekerjaan_p + "<br>Alamat : " + row.alamat_p + "<br>HP : " + no_hp(row.p_telp);
+                        return "Nama : " + row.nama_p + "<br><div class='line'></div>NIK : " + row.nik_p + "<br><div class='line'></div>Tanggal Lahir : " + momentObj.format('LL') + "<br><div class='line'></div>Agama : " + nama_agama(row.agama_id_p) + "<br><div class='line'></div>Pekerjaan : " + row.pekerjaan_p + "<br><div class='line'></div>Alamat : " + row.alamat_p + "<br><div class='line'></div>HP : " + no_hp(row.p_telp);
                     }},
                     {data:"nama_t", render: function(data,type,row,meta){
                         var dateObj = new Date(row.tanggal_lahir_t);
                         var momentObj = moment(dateObj);
-                        return "Nama : " + row.nama_t + "<br>NIK : " + row.nik_t + "<br>Tanggal Lahir : " + momentObj.format('LL') + "<br>Agama : " + nama_agama(row.agama_id_t) + "<br>Pekerjaan : " + row.pekerjaan_t + "<br>Alamat : " + row.alamat_t + "<br>HP : " + no_hp(row.t_telp);
+                        return "Nama : " + row.nama_t + "<br><div class='line'></div>NIK : " + row.nik_t + "<br><div class='line'></div>Tanggal Lahir : " + momentObj.format('LL') + "<br><div class='line'></div>Agama : " + nama_agama(row.agama_id_t) + "<br><div class='line'></div>Pekerjaan : " + row.pekerjaan_t + "<br><div class='line'></div>Alamat : " + row.alamat_t + "<br><div class='line'></div>HP : " + no_hp(row.t_telp);
                     }},
                     {data:"tgl_akta_cerai", render: function(data,type,row,meta){
                         var dateObj = new Date(row.tgl_akta_cerai);
                         var momentObj = moment(dateObj);
-                        return "Nomor : " + row.nomor_akta_cerai + "<br>Tanggal : " + momentObj.format('LL');
+                        return "Nomor : " + row.nomor_akta_cerai + "<br><div class='line'></div>Tanggal : " + momentObj.format('LL');
                     }},
-                    {data:"amar_putusan"}
+                    {data:"tgl_nikah", render: function(data,type,row,meta){
+                        var dateObj = new Date(row.tgl_nikah);
+                        var momentObj = moment(dateObj);
+                        return "Nomor : " + row.no_kutipan_akta_nikah + "<br><div class='line'></div>Tanggal : " + momentObj.format('LL') + "<br><div class='line'></div>" + row.kua_tempat_nikah;
+                    }},
+                    {data:"amar_putusan", render: function(data,type,row,meta){
+                        var d = data.toLowerCase();
+                        if(d.indexOf('asuh') !== -1 || d.indexOf('hadanah') !== -1 || d.indexOf('hadhanah') !== -1)
+                        {
+                            return data;
+                        }
+                        else
+                        {
+                            return 'Tidak ditentukan';
+                        }                        
+                    }}
                 ],
                 responsive: true,
                 autoWidth: false,
+                order: false,
                 columnDefs: [
-                    { responsivePriority: 1, targets: [2,3]},
-                    { sortable: false, targets: [1,2,3,4]}
+                    { responsivePriority: 1, targets: [3,4]},
+                    { sortable: false, targets: [2,3,4,5,6,7]},
+                    { visible: false, targets: [0]}
                 ]
+            });
+            $("#dt_kk").on('page.dt', function(){
+                $('html, body').animate({
+                    scrollTop: $('#dt_kk').offset().top
+                }, 200);
+            });
+            $('#dt_kk tbody').on('click', 'tr', function(e){
+                e.preventDefault();
+                var currentRow = $(this).closest('li').length ? $(this).closest('li') : $(this).closest('tr');                
+                var data = $("#dt_kk").DataTable().row(currentRow).data();
+                console.log(data);
             });
             // end coba MOU
         });
