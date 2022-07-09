@@ -74,8 +74,74 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header d-block">
-                        <h4 class="modal-title text-center">Tambah KK</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title text-center">Detail Perkara</h4>
+                        <h4 name="no_perk">Lorep Ipsum</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="data-umum-tab" data-bs-toogle="tab" data-bs-target="#data-umum" type="button" role="tab" aria-controls="data-umum" aria-selected="true">Data Umum</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="p-tab" data-bs-toogle="tab" data-bs-target="#p" type="button" role="tab" aria-controls="p" aria-selected="false">Penggugat</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="t-tab" data-bs-toogle="tab" data-bs-target="#t" type="button" role="tab" aria-controls="t" aria-selected="false">Tergugat</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="data-umum">
+                                <div class="form-group">
+                                    <label for="no_perkara">Perkara</label>
+                                    <input type="text" class="form-control" name="no_perkara" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no_ac">Akta Cerai</label>
+                                    <input type="text" class="form-control" name="no_ac" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal_ac">Tanggal Akta Cerai</label>
+                                    <input type="text" class="form-control" name="tanggal_ac" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no_akta_nikah">Buku Nikah</label>
+                                    <input type="text" class="form-control" name="no_akta_nikah" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal_menikah">Tanggal Nikah</label>
+                                    <input type="text" class="form-control" name="tanggal_menikah" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kua">Tempat Menikah</label>
+                                    <input type="text" class="form-control" name="kua" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="no_perkara">Perkara</label>
+                            <input type="text" class="form-control" name="no_perkara" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama_p">Nama Penggugat / Pemohon</label>
+                            <input type="text" class="form-control" name="nama_p" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nik_p">NIK Penggugat / Pemohon</label>
+                            <input type="text" class="form-control" name="nik_p" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggal_lahir_p">Tanggal Lahir Penggugat / Pemohon</label>
+                            <input type="text" class="form-control" name="tanggal_lahir_p" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="agama_p">Agama Penggugat / Pemohon</label>
+                            <input type="text" class="form-control" name="agama_p" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pekerjaan_p">Pekerjaan Penggugat / Pemohon</label>
+                            <input type="text" class="form-control" name="pekerjaan_p" readonly>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -112,7 +178,7 @@
             {
                 no = no.replace(ptrn1,'62');
                 no = no.replace(ptrn2, '');
-                text = "<a href='https://web.whatsapp.com/send?phone=" + no +"' target='_blank'>" + n0 +"</a>";
+                text = "<a href='https://web.whatsapp.com/send?phone=" + no +"' target='_blank' class='no-pihak'>" + n0 +"</a>";
             }            
             return text;
         }
@@ -289,6 +355,8 @@
             $("#sidebar_kk_belum").addClass("active");
             moment.locale('id');
             $.fn.dataTable.moment('LL');
+
+            
             
             // fix sesuai sipesut
             // dt_kk = $("#dt_kk").DataTable({
@@ -362,7 +430,7 @@
                 },
                 columns: [
                     {data:"perkara_id"},
-                    {data:null,sortalbe:false, render: function(data,type,row,meta){
+                    {data:null, render: function(data,type,row,meta){
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }},
                     {data:"nomor_perkara", render: function(data,type,row,meta){
@@ -406,11 +474,12 @@
                 autoWidth: false,
                 order: false,
                 columnDefs: [
-                    { responsivePriority: 1, targets: [3,4]},
+                    { responsivePriority: 1, targets: [1,3,4]},
                     { sortable: false, targets: [2,3,4,5,6,7]},
                     { visible: false, targets: [0]}
                 ]
             });
+            // end coba MOU
             $("#dt_kk").on('page.dt', function(){
                 $('html, body').animate({
                     scrollTop: $('#dt_kk').offset().top
@@ -421,8 +490,14 @@
                 var currentRow = $(this).closest('li').length ? $(this).closest('li') : $(this).closest('tr');                
                 var data = $("#dt_kk").DataTable().row(currentRow).data();
                 console.log(data);
+                $("#modal_kk").modal('show');
+                // modal detail
+                var firstTabEl = document.querySelector('#myTab li:last-child a');
+                var firstTab = new bootstrap.Tab(firstTabEl);
+                firstTab.show();
+                // end modal detail
             });
-            // end coba MOU
+            
         });
     </script>
 </body>
