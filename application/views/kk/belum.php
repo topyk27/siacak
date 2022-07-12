@@ -70,7 +70,7 @@
         <?php $this->load->view("_partials/footer.php") ?>
         <?php $this->load->view("_partials/loader.php") ?>
         <aside class="control-sidebar control-sidebar-dark"></aside>
-        <div id="modal_kk" class="modal fade bd-example-modal-lg">
+        <div id="modal_kk" class="modal fade bd-example-modal-lg" data-backdrop="static">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header d-block">
@@ -81,17 +81,26 @@
                     <div class="modal-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="data-umum-tab" data-bs-toogle="tab" data-bs-target="#data-umum" type="button" role="tab" aria-controls="data-umum" aria-selected="true">Data Umum</button>
+                                <!-- <button class="nav-link active" id="data-umum-tab" data-bs-toogle="tab" data-bs-target="#data-umum" type="button" role="tab" aria-controls="data-umum" aria-selected="true">Data Umum</button> -->
+                                <!-- <a href="#data-umum" class="nav-link active" aria-controls="data-umum" data-bs-toogle="tab" role="tab">Data Umum</a> -->
+                                <a href="#" id="a_data_umum_tab" class="nav-link">Data Umum</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="p-tab" data-bs-toogle="tab" data-bs-target="#p" type="button" role="tab" aria-controls="p" aria-selected="false">Penggugat</button>
+                                <!-- <button class="nav-link" id="p-tab" data-bs-toogle="tab" data-bs-target="#p" type="button" role="tab" aria-controls="p" aria-selected="false">Penggugat</button> -->
+                                <!-- <a href="#p" class="nav-link" aria-controls="p" data-bs-toogle="tab" role="tab">Penggugat</a> -->
+                                <a href="#" id="a_p_tab" class="nav-link">Penggugat</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="t-tab" data-bs-toogle="tab" data-bs-target="#t" type="button" role="tab" aria-controls="t" aria-selected="false">Tergugat</button>
+                                <!-- <button class="nav-link" id="t-tab" data-bs-toogle="tab" data-bs-target="#t" type="button" role="tab" aria-controls="t" aria-selected="false">Tergugat</button> -->
+                                <a href="#" id="a_t_tab" class="nav-link">Tergugat</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <!-- <button class="nav-link" id="anak-tab" data-bs-toogle="tab" data-bs-target="#anak" type="button" role="tab" aria-controls="anak" aria-selected="false">Anak</button> -->
+                                <a href="#" id="a_anak_tab" class="nav-link">Anak</a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="data-umum">
+                            <div class="tab-pane fade show active" id="data-umum" role="tabpanel" aria-labelledby="data-umum-tab">
                                 <div class="form-group">
                                     <label for="no_perkara">Perkara</label>
                                     <input type="text" class="form-control" name="no_perkara" readonly>
@@ -117,31 +126,82 @@
                                     <input type="text" class="form-control" name="kua" readonly>
                                 </div>
                             </div>
-                        </div>
-                        <!-- <div class="form-group">
-                            <label for="no_perkara">Perkara</label>
-                            <input type="text" class="form-control" name="no_perkara" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama_p">Nama Penggugat / Pemohon</label>
-                            <input type="text" class="form-control" name="nama_p" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="nik_p">NIK Penggugat / Pemohon</label>
-                            <input type="text" class="form-control" name="nik_p" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="tanggal_lahir_p">Tanggal Lahir Penggugat / Pemohon</label>
-                            <input type="text" class="form-control" name="tanggal_lahir_p" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="agama_p">Agama Penggugat / Pemohon</label>
-                            <input type="text" class="form-control" name="agama_p" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="pekerjaan_p">Pekerjaan Penggugat / Pemohon</label>
-                            <input type="text" class="form-control" name="pekerjaan_p" readonly>
-                        </div> -->
+                            <div class="tab-pane fade" id="p" role="tabpanel" aria-labelledby="p-tab">
+                                <div class="form-group">
+                                    <label for="nama_p">Nama</label>
+                                    <input type="text" class="form-control" name="nama_p" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nik_p">NIK</label>
+                                    <input type="text" class="form-control" name="nik_p" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal_lahir_p">Tanggal Lahir</label>
+                                    <input type="text" class="form-control" name="tanggal_lahir_p" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="agama_p">Agama</label>
+                                    <input type="text" class="form-control" name="agama_p" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pekerjaan_p">Pekerjaan</label>
+                                    <input type="text" class="form-control" name="pekerjaan_p" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamat_p">Alamat</label>
+                                    <!-- <input type="text" class="form-control" name="alamat_p" readonly> -->
+                                    <textarea name="alamat_p" class="form-control" readonly></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no_hp_p">Nomor HP</label>
+                                    <input type="text" class="form-control" name="no_hp_p" readonly>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="t" role="tabpanel" aria-labelledby="t-tab">
+                                <div class="form-group">
+                                    <label for="nama_t">Nama</label>
+                                    <input type="text" class="form-control" name="nama_t" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nik_t">NIK</label>
+                                    <input type="text" class="form-control" name="nik_t" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal_lahir_t">Tanggal Lahir</label>
+                                    <input type="text" class="form-control" name="tanggal_lahir_t" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="agama_t">Agama</label>
+                                    <input type="text" class="form-control" name="agama_t" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pekerjaan_t">Pekerjaan</label>
+                                    <input type="text" class="form-control" name="pekerjaan_t" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamat_t">Alamat</label>
+                                    <!-- <input type="text" class="form-control" name="alamat_t" readonly> -->
+                                    <textarea name="alamat_t" class="form-control" readonly></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no_hp_t">Nomor HP</label>
+                                    <input type="text" class="form-control" name="no_hp_t" readonly>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="anak" role="tabpanel" aria-labelledby="anak-tab">
+                                <div class="form-group">
+                                    <label for="penetapan_anak">Penetapan Anak</label>
+                                    <input type="text" class="form-control" name="penetapan_anak" readonly>                                    
+                                    <p name="p_penetapan_anak" style="display:none;"></p>
+                                    <label for="pernyataan">Surat Pernyataan Anak</label>
+                                    <input type="file" name="pernyataan" id="pernyataan" class="form-control" accept="application/pdf">
+                                    <div class="embed-responsive" style="display: none;">
+                                        <!-- <iframe src="" class="embed-responsive-item" id="viewer"></iframe> -->
+                                        <canvas id="viewer" class="embed-responsive-item"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -161,6 +221,7 @@
     <!-- Moment -->
     <script src="<?php echo base_url('asset/plugin/moment/moment-with-locales.min.js') ?>"></script>
     <script src="<?php echo base_url('asset/plugin/datatables/datetime-moment.js') ?>"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
     <script>
         var dt_kk;
 
@@ -350,9 +411,76 @@
             return istri;
         }
 
+        // tab
+        function change_tab(tab){
+            $("#modal_kk .modal-body .tab-content div").removeClass('active');
+            $("#modal_kk .modal-body .tab-content #"+tab).addClass('show active');
+        }
+        // end tab
+
+        // preview pdf
+        function preview_pdf(){
+            pdf = $("input[name='pernyataan']").files[0];
+            pdf_url = URL.createObjectURL(pdf);
+            $("#viewer").attr('src',pdf_url);
+            $(".embed-responsive").show();
+        }
+        // end preview pdf
+
         $(document).ready(function(){
             $("#sidebar_kk").addClass("active");
             $("#sidebar_kk_belum").addClass("active");
+            // tab
+            $("#a_data_umum_tab, #a_p_tab, #a_t_tab, #a_anak_tab").click(function(e){                
+                e.preventDefault();
+                switch (this.getAttribute('id')) {
+                    case 'a_data_umum_tab':
+                        change_tab('data-umum');
+                        break;
+                    case 'a_p_tab' :
+                        change_tab('p');
+                        break;
+                    case 'a_t_tab' :
+                        change_tab('t');
+                        break;
+                    case 'a_anak_tab' :
+                        change_tab('anak');
+                        break;                    
+                }
+                
+            });
+            // end tab
+            // preview pdf
+            $("input[name='pernyataan']").on('change', function(){
+                // pdf = $("input[name='pernyataan']").files[0];
+                pdf = document.getElementById('pernyataan').files[0];
+                pdf_url = URL.createObjectURL(pdf);
+                // $("#viewer").attr('src',pdf_url);
+                $(".embed-responsive").show();
+                var myState = {
+                    pdf: null,
+                    currentPage: 1,
+                    zoom: 1,
+                }
+                pdfjsLib.getDocument(pdf_url).then((pdf) => {                    
+                    myState.pdf = pdf;
+                    render();
+                });
+            });
+            function render(){
+                myState.pdf.getPage(myState.currentPage).then((page) => {
+                    var canvas = document.getElementById("viewer");
+                    var ctx = canvas.getContext('2d');
+                    var viewport = page.getViewport(myState.zoom);
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    page.render({
+                        canvasContext: ctx,
+                        viewport: viewport
+                    });
+                });
+            }
+            // end preview pdf
             moment.locale('id');
             $.fn.dataTable.moment('LL');
 
@@ -490,14 +618,92 @@
                 var currentRow = $(this).closest('li').length ? $(this).closest('li') : $(this).closest('tr');                
                 var data = $("#dt_kk").DataTable().row(currentRow).data();
                 console.log(data);
+                // console.log(data['agama_id_p']);
                 $("#modal_kk").modal('show');
-                // modal detail
-                var firstTabEl = document.querySelector('#myTab li:last-child a');
-                var firstTab = new bootstrap.Tab(firstTabEl);
-                firstTab.show();
+                // modal detail                
+                change_tab('data-umum');
+                // data umum
+                $("input[name='no_perkara']").val(data['nomor_perkara']);
+                $("input[name='no_ac']").val(data['nomor_akta_cerai']);
+                $("input[name='tanggal_ac']").val(function(){
+                    var dateObj = new Date(data['tgl_akta_cerai']);
+                    var momentObj = moment(dateObj);
+                    return momentObj.format('LL');
+                });
+                $("input[name='no_akta_nikah']").val(data['no_kutipan_akta_nikah']);
+                $("input[name='tanggal_menikah']").val(function(){
+                    var dateObj = new Date(data['tgl_nikah']);
+                    var momentObj = moment(dateObj);
+                    return momentObj.format('LL');
+                });
+                $("input[name='kua']").val(data['kua_tempat_nikah']);
+                // end data umum
+                // data p
+                $("input[name='nama_p']").val(data['nama_p']);
+                $("input[name='nik_p']").val(data['nik_p']);
+                $("input[name='tanggal_lahir_p']").val(function(){
+                    var dateObj = new Date(data['tanggal_lahir_p']);
+                    var momentObj = moment(dateObj);
+                    return momentObj.format('LL');
+                });
+                $("input[name='agama_p']").val(nama_agama(data['agama_id_p']));
+                $("input[name='pekerjaan_p']").val(data['pekerjaan_p']);
+                $("textarea[name='alamat_p']").val(data['alamat_p']);
+                $("input[name='no_hp_p']").val(function(){
+                    var no = data['p_telp'];
+                    if(no == null || no=="")
+                    {
+                        return "Tidak ada nomor hp";
+                    }
+                    else
+                    {
+                        return no;
+                    }
+                });
+                // end data p
+                // data t
+                $("input[name='nama_t']").val(data['nama_t']);
+                $("input[name='nik_t']").val(data['nik_t']);
+                $("input[name='tanggal_lahir_t']").val(function(){
+                    var dateObj = new Date(data['tanggal_lahir_t']);
+                    var momentObj = moment(dateObj);
+                    return momentObj.format('LL');
+                });
+                $("input[name='agama_t']").val(nama_agama(data['agama_id_t']));
+                $("input[name='pekerjaan_t']").val(data['pekerjaan_t']);
+                $("textarea[name='alamat_t']").val(data['alamat_t']);
+                $("input[name='no_hp_t']").val(function(){
+                    var no = data['t_telp'];
+                    if(no == null || no=="")
+                    {
+                        return "Tidak ada nomor hp";
+                    }
+                    else
+                    {
+                        return no;
+                    }
+                });
+                // end data t
+                // anak
+                var d = data['amar_putusan'].toLowerCase();
+                if(d.indexOf('asuh') !== -1 || d.indexOf('hadanah') !== -1 || d.indexOf('hadhanah') !== -1)
+                {
+                    $("input[name='penetapan_anak']").hide();
+                    $("input[name='penetapan_anak']").prop('disabled',true);
+                    $("p[name='p_penetapan_anak']").show();
+                    $("p[name='p_penetapan_anak']").append(data['amar_putusan']);
+                }
+                else
+                {                    
+                    $("p[name='p_penetapan_anak']").hide();
+                    $("p[name='p_penetapan_anak']").empty();
+                    $("input[name='penetapan_anak']").prop('disabled',false);
+                    $("input[name='penetapan_anak']").show();
+                    $("input[name='penetapan_anak']").val('Tidak ditentukan');
+                }  
+                // end anak
                 // end modal detail
-            });
-            
+            });            
         });
     </script>
 </body>
